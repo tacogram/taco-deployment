@@ -1,0 +1,42 @@
+version: '3'
+services:
+  taco:
+    # build: .
+    image: denysvuika/taco:0.1.0
+    container_name: taco_web
+    depends_on:
+      - postgres
+    env_file:
+      - ./.env.docker
+    networks:
+      - taco-network
+    ports:
+      - "8080:8080"
+  postgres:
+    image: postgres:latest
+    container_name: taco_postgres
+    ports:
+      - "6500:5432"
+    volumes:
+      - postgresDB:/var/lib/postgresql/data
+    env_file:
+      - ./.env.docker
+    networks:
+      - taco-network
+  pgAdmin:
+    image: dpage/pgadmin4
+    container_name: taco_pgAdmin
+    depends_on:
+      - postgres
+    env_file:
+      - ./.env.docker
+    networks:
+      - taco-network
+    ports:
+      - "5050:80"
+
+volumes:
+  postgresDB:
+
+networks:
+  taco-network: {}
