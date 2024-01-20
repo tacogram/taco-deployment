@@ -1,8 +1,7 @@
 version: '3'
 services:
   taco:
-    # build: .
-    image: denysvuika/taco:0.1.0
+    image: denysvuika/taco:latest
     container_name: taco_web
     depends_on:
       - postgres
